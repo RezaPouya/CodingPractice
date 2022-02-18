@@ -1,0 +1,6 @@
+﻿Implement your own queue (existing .NET implementations are not allowed (list, array, …)).
+
+    The queue should have the following methods:
+    Enqueue(object): Adds an element to the queue.
+    Dequeue(): Returns the first element and removes it from the queue.
+    Peek(): Returns the first element without removing it.

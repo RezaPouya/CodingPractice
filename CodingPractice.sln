@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Katas", "Katas", "{C24B5163-66E7-40F9-AF71-2AC994C86F9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenOrOdd", "Katas\EvenOrOdd\EvenOrOdd.csproj", "{19F43AE7-3A4E-4CDD-B574-B40BF49D8324}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue", "Katas\Queue\Queue.csproj", "{0992DDB5-573F-4660-B775-02AF3C227BE9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19F43AE7-3A4E-4CDD-B574-B40BF49D8324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F43AE7-3A4E-4CDD-B574-B40BF49D8324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F43AE7-3A4E-4CDD-B574-B40BF49D8324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F43AE7-3A4E-4CDD-B574-B40BF49D8324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0992DDB5-573F-4660-B775-02AF3C227BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0992DDB5-573F-4660-B775-02AF3C227BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0992DDB5-573F-4660-B775-02AF3C227BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0992DDB5-573F-4660-B775-02AF3C227BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19F43AE7-3A4E-4CDD-B574-B40BF49D8324} = {C24B5163-66E7-40F9-AF71-2AC994C86F9A}
+		{0992DDB5-573F-4660-B775-02AF3C227BE9} = {C24B5163-66E7-40F9-AF71-2AC994C86F9A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70E7D228-06F4-4E54-A574-D8DB5C0228BC}
+	EndGlobalSection
+EndGlobal
