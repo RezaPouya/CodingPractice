@@ -4,3 +4,6 @@
     Enqueue(object): Adds an element to the queue.
     Dequeue(): Returns the first element and removes it from the queue.
     Peek(): Returns the first element without removing it.
+
+Only Use C# Array and don't use any C# built-in function to maninpulate array ... 
+dont use list as array ... 

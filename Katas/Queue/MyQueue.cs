@@ -66,7 +66,7 @@ public class MyQueue<T>
 
         var newArray = new T[count];
 
-        while (counter <= count - 2)
+        while (counter <= this.Count - 1)
         {
             newArray[counter] = this.Items[counter]; ;
             counter++;
