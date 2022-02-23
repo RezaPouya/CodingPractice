@@ -18,9 +18,6 @@ public class BowlingTest
         Assert.Equal(1, _bowlingGame.RemainingRoll);
     }
 
-    /// <summary>
-    ///
-    /// </summary>
     [Fact]
     public void TheRemainingTurnShouldBe_2_WhenWeRollFor2Times()
     {
