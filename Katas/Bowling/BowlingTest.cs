@@ -5,25 +5,28 @@ public class BowlingTest
     private BowlingGame _bowlingGame = new BowlingGame();
 
     [Fact]
-    public void WeShouldHaveGame_Initial_Game()
+    public void WeShouldGame()
     {
         Assert.NotNull(_bowlingGame);
-        Assert.Equal(0, _bowlingGame.Score);
+        Assert.Equal(0, _bowlingGame.Score());
     }
 
     [Fact]
-    public void We_Should_Have_2_Roll_First_We_Role_Once_Then_We_Have_1_Remaining_Roll()
+    public void TheReamaingRoll_ShouldBe_1_WhenWeRollOnce()
     {
         _bowlingGame.Roll();
         Assert.Equal(1, _bowlingGame.RemainingRoll);
     }
 
+    /// <summary>
+    ///
+    /// </summary>
     [Fact]
-    public void We_Should_Have_2_Roll_Then_Go_To_Turn_2()
+    public void TheRemainingTurnShouldBe_2_WhenWeRollFor2Times()
     {
         _bowlingGame.Roll();
         _bowlingGame.Roll();
-        Assert.Equal(2, _bowlingGame.Turn);
+        Assert.Equal(2, _bowlingGame.CurrentFrame);
     }
 
     [Fact]
@@ -46,24 +49,24 @@ public class BowlingTest
     [Fact]
     public void We_Should_Have_4_Roll_Then_And_Be_In_Second_Turn()
     {
-        Assert.Equal(1, _bowlingGame.Turn);
+        Assert.Equal(1, _bowlingGame.CurrentFrame);
 
         _bowlingGame.Roll();
         _bowlingGame.Roll();
 
-        Assert.Equal(2, _bowlingGame.Turn);
+        Assert.Equal(2, _bowlingGame.CurrentFrame);
 
         _bowlingGame.Roll();
         _bowlingGame.Roll();
 
-        Assert.Equal(3, _bowlingGame.Turn);
+        Assert.Equal(3, _bowlingGame.CurrentFrame);
     }
 
     [Fact]
     public void We_Should_Have_20_Roll_Then_Have_0_Remaining_Frame()
     {
         Roll_For(20);
-        Assert.Equal(10, _bowlingGame.Turn);
+        Assert.Equal(10, _bowlingGame.CurrentFrame);
     }
 
     [Fact]
@@ -87,9 +90,7 @@ public class BowlingTest
 
         Exception exception = Assert.Throws<Exception>(act);
 
-        Assert.Equal("You can't roll more", exception.Message);
-
-        Assert.Equal(10, _bowlingGame.Turn);
+        Assert.Equal("You played your part and have no more turn", exception.Message);
     }
 
     [Fact]
@@ -97,7 +98,8 @@ public class BowlingTest
     {
         // act
         _bowlingGame.Roll(5);
-        Assert.Equal(5, _bowlingGame.Score);
+        _bowlingGame.Roll(5);
+        Assert.Equal(10, _bowlingGame.Score());
     }
 
     [Fact]
@@ -105,7 +107,7 @@ public class BowlingTest
     {
         // act
         _bowlingGame.Roll(6);
-        Assert.Equal(6, _bowlingGame.Score);
+        Assert.Equal(6, _bowlingGame.GetCurrentFrame().Score());
     }
 
     [Fact]
@@ -134,9 +136,9 @@ public class BowlingTest
     public void We_Roll_1st_Time_With_Score__of_3_Then_Roll_For_2nd_Time_With_Score_of_4_The_We_Should_Have_Score_of_7()
     {
         _bowlingGame.Roll(3);
-        Assert.Equal(3, _bowlingGame.Score);
+        Assert.Equal(3, _bowlingGame.GetCurrentFrame().Score());
         _bowlingGame.Roll(4);
-        Assert.Equal(7, _bowlingGame.Score);
+        Assert.Equal(7, _bowlingGame.Score());
     }
 
     [Fact]
@@ -154,17 +156,13 @@ public class BowlingTest
     [Fact]
     public void We_Roll_4_Times_With_Score_Of_9_1_5_3_Then_Total_Score_Should_Be_18()
     {
-        _bowlingGame.Roll(9);
+        _bowlingGame.Roll(7);
         _bowlingGame.Roll(1);
         _bowlingGame.Roll(5);
         _bowlingGame.Roll(3);
-        Assert.Equal(18, _bowlingGame.Score);
+        Assert.Equal(16, _bowlingGame.Score());
     }
 
-    /// <summary>
-    ///    - If in two tries he knocks them all down, this is called a “spare” and
-    /// his score for the frame is ten plus the number of pins knocked down on his next throw (in his next turn).
-    /// </summary>
     [Fact]
     public void We_Play_2_Time_And_Should_Have_Know_Our_Frame_Score_In_Each_Frame()
     {
@@ -181,13 +179,14 @@ public class BowlingTest
     /// his score for the frame is ten plus the number of pins knocked down on his next throw (in his next turn).
     /// </summary>
     [Fact]
-    public void We_Spare_In_First_Frame_Then_Roll_And_Score_8_Pins_In_Frame_2_Then_Total_Score_Should_Be_26()
+    public void WeShouldSpareInFirstFrameThenOurScoreShouldBe_26_AtStartOfFrame_3()
     {
         _bowlingGame.Roll(9);
         _bowlingGame.Roll(1);
         _bowlingGame.Roll(5);
         _bowlingGame.Roll(3);
-        Assert.Equal(26, _bowlingGame.Score);
+        Assert.Equal(3, _bowlingGame.CurrentFrame);
+        Assert.Equal(26, _bowlingGame.Score());
     }
 
     private void Roll_For(int itteration = 1)

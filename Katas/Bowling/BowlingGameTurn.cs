@@ -12,6 +12,23 @@ public class BowlingGameTurn
 
     public int? SecondRoll { get; private set; }
 
+    public bool IsSpare()
+    {
+        if (this.Score() == 10)
+            return true;
+
+        return false;
+    }
+
+    public bool IsStrike { get; private set; }
+
+    public int SpareScore { get; private set; }
+
+    public void SetSpareScore(int nextTurnScore)
+    {
+        this.SpareScore = Score() + nextTurnScore;
+    }
+
     public int RemainingRoll
     {
         get
