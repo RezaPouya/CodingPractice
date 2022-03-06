@@ -38,36 +38,96 @@ internal class BowlingGame
 
         turn.Roll(score);
 
+        if (turn.IsStrike())
+        {
+            CreateNewFrame();
+            return;
+        }
+
         if (turn.RemainingRoll == 0 && this.CurrentFrame < 10)
         {
             CreateNewFrame();
         }
     }
 
-    public int Score()
+    public int CalculateTotalScoreScore()
     {
-        var score = 0;
         foreach (var item in this.Frames)
         {
             if (item is null)
                 continue;
 
-            if (item.IsSpare() == false)
+            item.ResetScore();
+        }
+            var score = 0;
+
+        foreach (var item in this.Frames)
+        {
+            if (item is null)
+                continue;
+
+            if (item.IsSpare() == false && item.IsStrike() == false)
             {
                 score += item.Score();
                 continue;
             }
 
-            var nextTurnIndex = this.Frames.IndexOf(item) + 1;
-
-            if (nextTurnIndex <= 9)
+            if (item.IsSpare())
             {
-                var nextTurnScore = this.Frames[nextTurnIndex].Score();
-                item.SetSpareScore(nextTurnScore);
+                score = GetSpareScore(score, item);
             }
 
-            score += item.SpareScore;
+            if (item.IsStrike())
+            {
+                score = GetStrikeScore(score, item);
+            }
         }
+
+        return score;
+    }
+
+    private int GetSpareScore(int score, BowlingGameTurn item)
+    {
+        var nextTurnIndex = this.Frames.IndexOf(item) + 1;
+
+        if (nextTurnIndex <= 9)
+        {
+            var nextTurn = this.Frames[nextTurnIndex];
+            var nextTurnScore = nextTurn?.FirstRoll ?? 0;
+            item.SetSpareScore(nextTurnScore);
+        }
+
+        score += item.SpareScore;
+
+        return score;
+    }
+
+    private int GetStrikeScore(int score, BowlingGameTurn item)
+    {
+        var nextTurnIndex = this.Frames.IndexOf(item) + 1;
+        var nextTurn = this.Frames[nextTurnIndex];
+
+        if (nextTurn != null)
+        {
+            if (nextTurn.IsStrike())
+            {
+                var firstTurnScore = 10;
+                var secondTurnFirstRollScore = 0;
+                var next2ndTurn = this.Frames[nextTurnIndex + 1];
+                if (next2ndTurn is not null)
+                {
+                    secondTurnFirstRollScore = nextTurn.FirstRoll ?? 0;
+                }
+
+                item.SetStrikeScore(firstTurnScore + secondTurnFirstRollScore);
+            }
+            else
+            {
+                item.SetStrikeScore(nextTurn.Score());
+            }
+        }
+
+        score += item.StrikeScore;
 
         return score;
     }
@@ -104,5 +164,10 @@ internal class BowlingGame
         }
 
         return frame.Score();
+    }
+
+    internal BowlingGameTurn GetTurn(int v)
+    {
+        return this.Frames[v - 1];
     }
 }

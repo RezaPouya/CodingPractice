@@ -12,21 +12,41 @@ public class BowlingGameTurn
 
     public int? SecondRoll { get; private set; }
 
-    public bool IsSpare()
+    public bool IsStrike()
     {
-        if (this.Score() == 10)
-            return true;
-
-        return false;
+        return (this.FirstRoll == 10);
     }
 
-    public bool IsStrike { get; private set; }
+    public bool IsSpare()
+    {
+        bool isSpare = (IsStrike() == false && this.GetPureScore() == 10);
+        return isSpare;
+    }
 
     public int SpareScore { get; private set; }
 
+    public int StrikeScore { get; private set; }
+
     public void SetSpareScore(int nextTurnScore)
     {
+        if (this.IsStrike())
+            throw new Exception("This is strike , so you can't set spare score");
+
         this.SpareScore = Score() + nextTurnScore;
+    }
+
+    public void SetStrikeScore(int nextTurnScore)
+    {
+        if (this.FirstRoll.Value != 10)
+            throw new Exception("This is not Strike, so you can't set strike score");
+
+        this.StrikeScore = Score() + nextTurnScore;
+    }
+
+    public void ResetScore()
+    {
+        this.StrikeScore = 0;
+        this.SpareScore = 0;
     }
 
     public int RemainingRoll
@@ -66,6 +86,21 @@ public class BowlingGameTurn
     }
 
     public int Score()
+    {
+        if (IsSpare() == false && IsStrike() == false)
+        {
+            return this.FirstRoll.GetValueOrDefault() + this.SecondRoll.GetValueOrDefault();
+        }
+
+        if (IsSpare())
+        {
+            return this.SpareScore == 0 ? 10 : this.SpareScore;
+        }
+
+        return this.StrikeScore == 0 ? 10 : this.StrikeScore;
+    }
+
+    private int GetPureScore()
     {
         return this.FirstRoll.GetValueOrDefault() + this.SecondRoll.GetValueOrDefault();
     }

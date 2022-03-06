@@ -8,7 +8,7 @@ public class BowlingTest
     public void WeShouldGame()
     {
         Assert.NotNull(_bowlingGame);
-        Assert.Equal(0, _bowlingGame.Score());
+        Assert.Equal(0, _bowlingGame.CalculateTotalScoreScore());
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class BowlingTest
         // act
         _bowlingGame.Roll(5);
         _bowlingGame.Roll(5);
-        Assert.Equal(10, _bowlingGame.Score());
+        Assert.Equal(10, _bowlingGame.CalculateTotalScoreScore());
     }
 
     [Fact]
@@ -135,7 +135,7 @@ public class BowlingTest
         _bowlingGame.Roll(3);
         Assert.Equal(3, _bowlingGame.GetCurrentFrame().Score());
         _bowlingGame.Roll(4);
-        Assert.Equal(7, _bowlingGame.Score());
+        Assert.Equal(7, _bowlingGame.CalculateTotalScoreScore());
     }
 
     [Fact]
@@ -157,7 +157,7 @@ public class BowlingTest
         _bowlingGame.Roll(1);
         _bowlingGame.Roll(5);
         _bowlingGame.Roll(3);
-        Assert.Equal(16, _bowlingGame.Score());
+        Assert.Equal(16, _bowlingGame.CalculateTotalScoreScore());
     }
 
     [Fact]
@@ -176,15 +176,55 @@ public class BowlingTest
     /// his score for the frame is ten plus the number of pins knocked down on his next throw (in his next turn).
     /// </summary>
     [Fact]
-    public void WeShouldSpareInFirstFrameThenOurScoreShouldBe_26_AtStartOfFrame_3()
+    public void WeShouldSpareInFirstFrameThenOurScoreShouldBe_23_AtStartOfFrame_3()
     {
         _bowlingGame.Roll(9);
         _bowlingGame.Roll(1);
         _bowlingGame.Roll(5);
         _bowlingGame.Roll(3);
         Assert.Equal(3, _bowlingGame.CurrentFrame);
-        Assert.Equal(26, _bowlingGame.Score());
+        Assert.Equal(23, _bowlingGame.CalculateTotalScoreScore());
     }
+
+    /// <summary>
+    ///  - If on his first try in the frame he knocks down all the pins, this is called a “strike”. His turn is over,
+    /// and his score for the frame is ten plus the simple total of the pins knocked down in his next two rolls.
+    /// </summary>
+    [Fact]
+    public void AfterStrikeInFirstRollTheTurnShouldIncrease()
+    {
+        _bowlingGame.Roll(10);
+        Assert.Equal(2, _bowlingGame.CurrentFrame);
+        _bowlingGame.Roll(3);
+        Assert.Equal(2, _bowlingGame.CurrentFrame);
+    }
+
+    [Fact]
+    public void AfterStrikeItShouldntConsiderFrameAsSpare()
+    {
+        _bowlingGame.Roll(10);
+        var turn = _bowlingGame.GetTurn(1);
+        Assert.False(turn.IsSpare());
+    }
+
+
+    /// <summary>
+    ///  - If on his first try in the frame he knocks down all the pins, this is called a “strike”. His turn is over,
+    /// and his score for the frame is ten plus the simple total of the pins knocked down in his next two rolls.
+    /// </summary>
+    [Fact]
+    public void AfterStrikeItShouldAddTotal()
+    {
+        _bowlingGame.Roll(10);
+        _bowlingGame.Roll(1);
+        _bowlingGame.Roll(5);
+        _bowlingGame.CalculateTotalScoreScore();
+        var frstTurn = _bowlingGame.GetTurn(1);
+        var score = frstTurn.Score();
+        Assert.Equal(16, score);
+        Assert.Equal(16 + 6, _bowlingGame.CalculateTotalScoreScore());
+    }
+
 
     private void Roll_For(int itteration = 1)
     {

@@ -32,6 +32,7 @@ We can briefly summarize the scoring for this form of bowling:
     - If on his first try in the frame he knocks down all the pins, this is called a “strike”. His turn is over,
       and his score for the frame is ten plus the simple total of the pins knocked down in his next two rolls.
     
+
     - If he gets a spare or strike in the last (tenth) frame, the bowler gets to throw one or two more bonus balls,
       respectively. These bonus throws are taken as part of the same turn. If the bonus throws knock down all the pins, 
       the process does not repeat: the bonus throws are only used to calculate the score of the final frame.
@@ -44,3 +45,70 @@ More info on the rules at: How to Score for Bowling
 * Clues
 
 What makes this game interesting to score is the lookahead in the scoring for strike and spare. At the time we throw a strike or spare, we cannot calculate the frame score: we have to wait one or two frames to find out what the bonus is.
+
+
+
+Side note : this is how strike are calculated 
+
+    Scoring
+
+ 
+
+    In general, one point is scored for each pin that is knocked over. So if a player bowls over three pins with the first shot, then six with the second, the player would receive a total of nine points for that frame. If a player knocks down 9 pins with the first shot, but misses with the second, the player would also score nine. When a player fails to knock down all ten pins after their second ball it is known as an open frame.
+
+    In the event that all ten pins are knocked over by a player in a single frame, bonuses are awarded.
+ 
+    A ten-pin bowling score sheet showing how a strike is scored:
+    Bowlstrike.png
+
+    Strike: When all ten pins are knocked down with the first ball (called a strike and typically rendered as an “X” on a score sheet), a player is awarded ten points, plus a bonus of whatever is scored with the next two balls. In this way, the points scored for the two balls after the strike are counted twice.
+
+    Frame 1, ball 1: 10 pins (strike)
+    Frame 2, ball 1: 3 pins
+    Frame 2, ball 2: 6 pins
+
+    The total score from these throws is:
+
+    Frame one: 10 + (3 + 6) = 19
+    Frame two: 3 + 6 = 9
+    TOTAL = 28
+
+    A player who scores multiple strikes in succession would score like so:
+
+    Frame 1, ball 1: 10 pins (strike)
+    Frame 2, ball 1: 10 pins (strike)
+    Frame 3, ball 1: 4 pins
+    Frame 3, ball 2: 2 pins
+
+    The score from these throws are:
+
+    Frame one: 10 + (10 + 4) = 24
+    Frame two: 10 + (4 + 2) = 16
+    Frame three: 4 + 2 = 6
+    TOTAL = 46
+
+    The most points that can be scored in a single frame are 30 points (10 for the original strike, plus strikes in the two subsequent frames).
+
+    A player who bowls a strike in the tenth (final) frame is awarded two extra balls so as to allow the awarding of bonus points. If both these balls also result in strikes, a total of 30 points (10 + 10 + 10) is awarded for the frame. These bonus points do not count on their own; they only count as the bonus for the strike.
+
+
+https://www.playerssports.net/page/bowling-rules
+
+    A ten-pin bowling score sheet showing how a spare is scored:
+    Bowlspare.png
+
+    Spare: A “spare” is awarded when no pins are left standing after the second ball of a frame; i.e., a player uses both balls of a frame to clear all ten pins. A player achieving a spare is awarded ten points, plus a bonus of whatever is scored with the next ball (only the first ball is counted). It is typically rendered as a slash on score sheets in place of the second pin count for a frame.
+    Example:
+
+    Frame 1, ball 1: 7 pins
+    Frame 1, ball 2: 3 pins (spare)
+    Frame 2, ball 1: 4 pins
+    Frame 2, ball 2: 2 pins
+
+    The total score from these throws is:
+
+    Frame one: 7 + 3 + 4 (bonus) = 14
+    Frame two: 4 + 2 = 6
+    TOTAL = 20
+
+    A player who bowls a spare in the tenth (final) frame is awarded one extra ball to allow for the bonus points.  The maximum score in a game of ten-pin is 300.
