@@ -13,53 +13,34 @@ internal class MyStack<T>
 
     public void Push(T obj1)
     {
-        CreateAscendingArray();
-        elements[elements.Length - 1] = obj1;
+        var newElements = new T[elements.Length + 1];
+
+        for (int i = 0; i < elements.Length; i++)
+        {
+            newElements[i] = elements[i];
+        }
+
+        newElements[elements.Length] = obj1;
+
+        elements = newElements;
     }
 
     public T Pop()
     {
         CheckIfIsEmpty();
+
         var item = elements[elements.Length - 1];
-        CreateDescendingArray();
+
+        var newElements = new T[elements.Length - 1];
+
+        for (int i = 0; i < elements.Length - 1; i++)
+        {
+            newElements[i] = elements[i];
+        }
+
+        elements = newElements;
+
         return item;
-    }
-
-    private void CreateDescendingArray()
-    {
-        var count = this.elements.Length - 1;
-        var counter = 0;
-
-        var newArray = new T[count];
-
-        while (counter < count)
-        {
-            newArray[counter] = this.elements[counter]; ;
-            counter++;
-        }
-
-        this.elements = newArray;
-    }
-
-    private void CreateAscendingArray()
-    {
-        var count = this.elements.Length + 1;
-        var newArray = new T[count];
-        var counter = 0;
-
-        if (count == 1)
-        {
-            this.elements = new T[count];
-            return;
-        }
-
-        while (counter <= this.elements.Length - 1)
-        {
-            newArray[counter] = this.elements[counter];
-            counter++;
-        }
-
-        this.elements = newArray;
     }
 
     public T Peek()
