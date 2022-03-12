@@ -7,15 +7,24 @@ public class MyQueue<T>
         this.Items = new T[0];
     }
 
-    public int Count { get; private set; }
+    public int Count => this.Items.Length;
 
     private T[] Items;
 
     public void Enqueue(T p)
     {
-        CreateAscendingArray();
-        this.Items[Count] = p;
-        this.Count++;
+        var newElements = new T[Count + 1];
+
+        if (Count > 0)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                newElements[i] = Items[i];
+            }
+        }
+
+        newElements[Count] = p;
+        Items = newElements;
     }
 
     public T Dequeue()
@@ -25,8 +34,14 @@ public class MyQueue<T>
 
         var item = this.Items[Count - 1];
 
-        CreateDescendingArray();
-        this.Count--;
+        var newElements = new T[Count - 1];
+
+        for (int i = 0; i < Count - 1; i++)
+        {
+            newElements[i] = Items[i];
+        }
+
+        Items = newElements;
 
         return item;
     }
@@ -34,44 +49,5 @@ public class MyQueue<T>
     public T Peek()
     {
         return this.Items[Count - 1];
-    }
-
-    private void CreateDescendingArray()
-    {
-        var count = this.Count - 1;
-        var counter = 0;
-
-        var newArray = new T[count];
-
-        while (counter < count)
-        {
-            newArray[counter] = this.Items[counter]; ;
-            counter++;
-        }
-
-        this.Items = newArray;
-    }
-
-    private void CreateAscendingArray()
-    {
-        var count = this.Count + 1;
-
-        if (count == 1)
-        {
-            this.Items = new T[count];
-            return;
-        }
-
-        var counter = 0;
-
-        var newArray = new T[count];
-
-        while (counter <= this.Count - 1)
-        {
-            newArray[counter] = this.Items[counter]; ;
-            counter++;
-        }
-
-        this.Items = newArray;
     }
 }
